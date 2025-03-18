@@ -47,7 +47,7 @@ nav ul li a {
 
 /* About Us (75%) */
 .about {
-    width: 70%;
+    width: 75%;
     padding: 20px;
     background: white;
     box-shadow: 2px 2px 10px gray;
@@ -83,6 +83,10 @@ button {
     cursor: pointer;
     border-radius: 5px;
     margin-top: 10px;
+}
+
+.spacer {
+    width: 5%;
 }
 
 button:disabled {
