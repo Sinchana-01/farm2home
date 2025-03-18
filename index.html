@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm2Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>Farm2Home</h1>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="product.html">Products</a></li>
+                <li><a href="farming-area.html">Farming Area</a></li>
+                <li><a href="sellers.html">Sellers</a></li>
+                <li><a href="offers.html">Offers</a></li>
+                <li><a href="queries.html">Queries/Suggestions</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Customer Profile (Top Left) -->
+    <div id="customer-profile">
+        <h3>Welcome<span id="customer-name"></span></h3>
+    </div>
+
+    <main class="container">
+        <!-- About Us Section (75%) -->
+        <section class="about">
+            <h2>About Us</h2>
+            <p>We provide fresh milk and vegetables directly from local farmers to your doorstep. Our mission is to support sustainable farming and deliver high-quality organic products to consumers efficiently.</p>
+        </section>
+
+        <!-- Registration Section (25%) -->
+        <section class="register">
+            <h2>Register</h2>
+            <form id="registerForm">
+                <label>Select Role:</label>
+                <select id="user-role">
+                    <option value="customer">Customer</option>
+                    <option value="seller">Seller</option>
+                    <option value="admin">Admin</option>
+                </select>
+
+                <label>Name:</label>
+                <input type="text" id="name" required>
+
+                <label>Phone Number:</label>
+                <input type="tel" id="phone" required>
+
+                <button type="button" onclick="sendOTP()">Send OTP</button>
+
+                <label>Enter OTP:</label>
+                <input type="text" id="otp" disabled required>
+
+                <button type="button" onclick="verifyOTP()">Verify OTP</button>
+
+                <label>Create Password:</label>
+                <input type="password" id="password" disabled required>
+
+                <button type="submit">Register</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Milk & Vegetable Delivery</p>
+    </footer>
+
+    <script>
+        function sendOTP() {
+            let phone = document.getElementById('phone').value;
+            if (phone.length === 10) {
+                alert('OTP sent to ' + phone);
+                document.getElementById('otp').disabled = false;
+            } else {
+                alert('Enter a valid phone number');
+            }
+        }
+
+        function verifyOTP() {
+            let otp = document.getElementById('otp').value;
+            if (otp === '1234') { // Simulated OTP
+                alert('OTP Verified!');
+                document.getElementById('password').disabled = false;
+            } else {
+                alert('Invalid OTP');
+            }
+        }
+
+        document.getElementById("registerForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            let role = document.getElementById("user-role").value;
+            let name = document.getElementById("name").value;
+            let phone = document.getElementById("phone").value;
+            
+            if (role === "customer") {
+                localStorage.setItem("customerName", name);
+                document.getElementById("customer-name").innerText = name;
+                alert("Customer registered successfully!");
+            } else if (role === "seller") {
+                let sellerData = { name: name, phone: phone };
+                localStorage.setItem("sellerInfo", JSON.stringify(sellerData));
+                alert("Seller registered successfully!");
+            } else {
+                alert("Admin registered successfully!");
+            }
+        });
+
+        // Display saved customer profile
+        document.addEventListener("DOMContentLoaded", function () {
+            let savedCustomer = localStorage.getItem("customerName");
+            if (savedCustomer) {
+                document.getElementById("customer-name").innerText = savedCustomer;
+            }
+        });
+    </script>
+</body>
+</html>
